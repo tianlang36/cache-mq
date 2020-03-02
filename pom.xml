@@ -79,15 +79,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-<!--                        <manifest>-->
-<!--                            <mainClass></mainClass>-->
-<!--                        </manifest>-->
-<!--                        <exclude>-->
-<!--                            <groupId>cn.rdtimes</groupId>-->
-<!--                            <artifactId>BZFramework-mq-cache</artifactId>-->
-<!--                        </exclude>-->
-                    </archive>
                 </configuration>
                 <executions>
                     <execution>
