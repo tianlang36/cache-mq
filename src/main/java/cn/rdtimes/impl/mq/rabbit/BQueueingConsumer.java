@@ -15,15 +15,9 @@ import java.util.concurrent.TimeUnit;
 class BQueueingConsumer extends DefaultConsumer {
     private final BlockingQueue<Delivery> _queue;
 
-    // When this is non-null the queue is in shutdown mode and nextDelivery should
-    // throw a shutdown signal exception.
     private volatile ShutdownSignalException _shutdown;
     private volatile ConsumerCancelledException _cancelled;
 
-    // Marker object used to signal the queue is in shutdown mode.
-    // It is only there to wake up consumers. The canonical representation
-    // of shutting down is the presence of _shutdown.
-    // Invariant: This is never on _queue unless _shutdown != null.
     private static final Delivery POISON = new Delivery(null, null, null);
 
     public BQueueingConsumer(Channel ch) {
@@ -58,9 +52,6 @@ class BQueueingConsumer extends DefaultConsumer {
         this._queue.add(new Delivery(envelope, properties, body));
     }
 
-    /**
-     * Encapsulates an arbitrary message - simple "bean" holder structure.
-     */
     public static class Delivery {
         private final Envelope _envelope;
         private final AMQP.BasicProperties _properties;
@@ -72,53 +63,24 @@ class BQueueingConsumer extends DefaultConsumer {
             _body = body;
         }
 
-        /**
-         * Retrieve the message envelope.
-         *
-         * @return the message envelope
-         */
         public Envelope getEnvelope() {
             return _envelope;
         }
 
-        /**
-         * Retrieve the message properties.
-         *
-         * @return the message properties
-         */
         public BasicProperties getProperties() {
             return _properties;
         }
 
-        /**
-         * Retrieve the message body.
-         *
-         * @return the message body
-         */
         public byte[] getBody() {
             return _body;
         }
     }
 
-    /**
-     * Check if we are in shutdown mode and if so throw an exception.
-     */
     private void checkShutdown() {
         if (_shutdown != null)
             throw Utility.fixStackTrace(_shutdown);
     }
 
-    /**
-     * If delivery is not POISON nor null, return it.
-     * <p/>
-     * If delivery, _shutdown and _cancelled are all null, return null.
-     * <p/>
-     * If delivery is POISON re-insert POISON into the queue and
-     * throw an exception if POISONed for no reason.
-     * <p/>
-     * Otherwise, if we are in shutdown mode or cancelled,
-     * throw a corresponding exception.
-     */
     private Delivery handle(Delivery delivery) {
         if (delivery == POISON ||
                 delivery == null && (_shutdown != null || _cancelled != null)) {
@@ -138,28 +100,11 @@ class BQueueingConsumer extends DefaultConsumer {
         return delivery;
     }
 
-    /**
-     * Main application-side API: wait for the next message delivery and return it.
-     *
-     * @return the next message
-     * @throws InterruptedException       if an interrupt is received while waiting
-     * @throws ShutdownSignalException    if the connection is shut down while waiting
-     * @throws ConsumerCancelledException if this consumer is cancelled while waiting
-     */
     public Delivery nextDelivery()
             throws InterruptedException, ShutdownSignalException, ConsumerCancelledException {
         return handle(_queue.take());
     }
 
-    /**
-     * Main application-side API: wait for the next message delivery and return it.
-     *
-     * @param timeout timeout in millisecond
-     * @return the next message or null if timed out
-     * @throws InterruptedException       if an interrupt is received while waiting
-     * @throws ShutdownSignalException    if the connection is shut down while waiting
-     * @throws ConsumerCancelledException if this consumer is cancelled while waiting
-     */
     public Delivery nextDelivery(long timeout)
             throws InterruptedException, ShutdownSignalException, ConsumerCancelledException {
         return handle(_queue.poll(timeout, TimeUnit.MILLISECONDS));
