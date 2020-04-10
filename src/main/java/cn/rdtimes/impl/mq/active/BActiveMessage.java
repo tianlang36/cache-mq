@@ -9,6 +9,7 @@ import javax.jms.Session;
 /**
  * @description: active消息对象,子类要实现抽象方法
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public abstract class BActiveMessage implements IMQMessage {

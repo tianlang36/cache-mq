@@ -10,6 +10,7 @@ import javax.jms.TextMessage;
 /**
  * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BMessage extends BActiveMessage {

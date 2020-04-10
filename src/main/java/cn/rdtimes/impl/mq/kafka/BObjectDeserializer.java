@@ -7,6 +7,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 /**
  * @description: bean反序列化
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BObjectDeserializer<T> implements Deserializer<T> {

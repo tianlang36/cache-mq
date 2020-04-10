@@ -1,6 +1,5 @@
 package cn.rdtimes.impl.mq.active;
 
-import cn.rdtimes.impl.mq.BMQHelper;
 import cn.rdtimes.mq.BMQException;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.BAbstractMQSender;
@@ -14,6 +13,7 @@ import java.util.List;
 /**
  * @description: active发送器
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BActiveSender extends BAbstractMQSender {
@@ -51,7 +51,7 @@ public class BActiveSender extends BAbstractMQSender {
 
     @Override
     public String getName() {
-        return BMQHelper.RABBIT_SENDER_NAME;
+        return BMQHelper.ACTIVE_SENDER_NAME;
     }
 
     @Override

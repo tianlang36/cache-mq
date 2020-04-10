@@ -3,7 +3,6 @@ package cn.rdtimes.impl.cache.memcached;
 import cn.rdtimes.cache.BCacheFactory;
 import cn.rdtimes.cache.intf.BAbstractCacheBase;
 import cn.rdtimes.cache.intf.ICacheBase;
-import cn.rdtimes.impl.cache.BCacheHelper;
 import net.spy.memcached.MemcachedClient;
 
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @description: memcached缓存实现
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BMemcachedCache extends BAbstractCacheBase {

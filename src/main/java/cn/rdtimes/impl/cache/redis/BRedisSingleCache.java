@@ -4,7 +4,6 @@ import cn.rdtimes.cache.BCacheFactory;
 import cn.rdtimes.cache.intf.BAbstractCacheBase;
 import cn.rdtimes.cache.intf.ICacheAdvance;
 import cn.rdtimes.cache.intf.ICacheBase;
-import cn.rdtimes.impl.cache.BCacheHelper;
 import redis.clients.jedis.*;
 import redis.clients.jedis.params.SetParams;
 
@@ -13,6 +12,7 @@ import java.util.*;
 /**
  * @description: redis实现分片类型
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRedisSingleCache extends BAbstractCacheBase implements ICacheAdvance {

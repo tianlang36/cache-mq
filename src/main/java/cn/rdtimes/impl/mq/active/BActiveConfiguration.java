@@ -8,18 +8,11 @@ import java.util.List;
 /**
  * @description: active配置信息
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BActiveConfiguration {
     private List<IMQFilter> filters = new ArrayList<>(1);
-
-    //接收器线程池大小，与发送器无关
-    private int threadCount = 1;
-    //接收下线程池队列最大值，与发送器无关
-    private int queueSize = 2000;
-    //以不同名称可以创建多个接收器
-    private String name;
-
     //tcp://ip:port
     private String url;
     private String userName;
@@ -27,30 +20,6 @@ public class BActiveConfiguration {
     //是否需要持久化存储消息
     private boolean enablePersistent = true;
     private String clientId = "BZ-Active000000";
-
-    public int getThreadCount() {
-        return threadCount;
-    }
-
-    public void setThreadCount(int threadCount) {
-        this.threadCount = threadCount;
-    }
-
-    public int getQueueSize() {
-        return queueSize;
-    }
-
-    public void setQueueSize(int queueSize) {
-        this.queueSize = queueSize;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getUrl() {
         return url;

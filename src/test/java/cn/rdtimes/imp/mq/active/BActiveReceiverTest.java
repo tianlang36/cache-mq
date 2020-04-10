@@ -1,8 +1,6 @@
 package cn.rdtimes.imp.mq.active;
 
-import cn.rdtimes.imp.mq.BMyFilterTest;
-import cn.rdtimes.imp.mq.BObjectMessageTest;
-import cn.rdtimes.impl.mq.BMQHelper;
+import cn.rdtimes.impl.mq.active.BMQHelper;
 import cn.rdtimes.impl.mq.active.BActiveReceiverConfiguration;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.IMQMessage;
@@ -13,8 +11,9 @@ import java.util.concurrent.CountDownLatch;
 
 
 /**
- * @description: mem缓存测试
+ * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BActiveReceiverTest {
@@ -31,7 +30,7 @@ public class BActiveReceiverTest {
         configuration.setProcessNotify(new ProcessNotify());
         configuration.setMessageClassName("cn.rdtimes.imp.mq.active.BMessage");
 
-        BMQHelper.createActiveReceiver(configuration);
+        BMQHelper.createReceiver(configuration);
 
         CountDownLatch latch = new CountDownLatch(1);
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

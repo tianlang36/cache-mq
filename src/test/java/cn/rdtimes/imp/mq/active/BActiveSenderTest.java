@@ -1,8 +1,6 @@
 package cn.rdtimes.imp.mq.active;
 
-import cn.rdtimes.imp.mq.BMyFilterTest;
-import cn.rdtimes.imp.mq.BObjectMessageTest;
-import cn.rdtimes.impl.mq.BMQHelper;
+import cn.rdtimes.impl.mq.active.BMQHelper;
 import cn.rdtimes.impl.mq.active.BActiveSenderConfiguration;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.IMQSender;
@@ -10,8 +8,9 @@ import org.junit.Test;
 
 
 /**
- * @description: mem缓存测试
+ * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BActiveSenderTest {
@@ -24,7 +23,7 @@ public class BActiveSenderTest {
 //        configuration.setPassword("123456");
         configuration.setClientId("0000000");
         configuration.addFilter(new BActiveFilterTest());
-        IMQSender sender = BMQHelper.createActiveSender(configuration);
+        IMQSender sender = BMQHelper.createSender(configuration);
 
         int i = 1;
         String queueName = "bztest";

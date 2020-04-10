@@ -1,19 +1,24 @@
 package cn.rdtimes.impl.mq.kafka;
 
-import cn.rdtimes.mq.intf.IMQFilter;
 import cn.rdtimes.mq.intf.IMQReceiver;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @description: kafka接收器的配置信息
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BKafkaReceiverConfiguration extends BKafkaConfiguration {
     private IMQReceiver.IProcessNotify processNotify;
+    //接收器线程池大小，与发送器无关
+    private int threadCount = 1;
+    //接收下线程池队列最大值，与发送器无关
+    private int queueSize = 2000;
+    //以不同名称可以创建多个接收器
+    private String name;
 
     //以下是Consumer使用,大部分可以使用默认值
     //是否能自动提交
@@ -36,9 +41,9 @@ public class BKafkaReceiverConfiguration extends BKafkaConfiguration {
     //消费者组名称
     private String groupId = "BZ-KakfaConsumerGroupId";
     //关键字的反序列化类
-    protected String keyDeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
+    private String keyDeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
     //值的反序列化类
-    protected String valueDeserializer = "cn.rdtimes.impl.mq.kafka.BObjectDeserializer";
+    private String valueDeserializer = "cn.rdtimes.impl.mq.kafka.BObjectDeserializer";
 
     //以下是内部使用
     //订阅主题,多个主题可以用逗号分隔
@@ -76,10 +81,6 @@ public class BKafkaReceiverConfiguration extends BKafkaConfiguration {
 
     public void setAutoOffsetReset(String autoOffsetReset) {
         this.autoOffsetReset = autoOffsetReset;
-    }
-
-    public String getTopicNames() {
-        return topicNames;
     }
 
     public void setTopicNames(String topicNames) {
@@ -149,18 +150,57 @@ public class BKafkaReceiverConfiguration extends BKafkaConfiguration {
 
     @Override
     protected void convertProperties() {
-        properties.setProperty("key.deserializer", keyDeserializer);
-        properties.setProperty("value.deserializer", valueDeserializer);
-        properties.put("group.id", groupId);
-        properties.put("enable.auto.commit", autoCommit);
-        properties.put("auto.commit.interval.ms", autoCommitInterval);
-        properties.put("session.timeout.ms", sessionTimeout);
-        properties.put("auto.offset.reset", autoOffsetReset);
-        properties.put("fetch.min.bytes", fetchMin);
-        properties.put("fetch.max.bytes", fetchMax);
-        properties.put("max.poll.records", maxPollRecords);
+        properties.setProperty("key.deserializer", getKeyDeserializer());
+        properties.setProperty("value.deserializer", getValueDeserializer());
+        properties.put("group.id", getGroupId());
+        properties.put("enable.auto.commit", isAutoCommit());
+        properties.put("auto.commit.interval.ms", getAutoCommitInterval());
+        properties.put("session.timeout.ms", getSessionTimeout());
+        properties.put("auto.offset.reset", getAutoOffsetReset());
+        properties.put("fetch.min.bytes", getFetchMin());
+        properties.put("fetch.max.bytes", getFetchMax());
+        properties.put("max.poll.records", getMaxPollRecords());
         properties.put("receive.buffer.bytes", -1);
-        properties.put("client.id", clientId);
+        properties.put("client.id", getClientId());
     }
 
+    public String getKeyDeserializer() {
+        return keyDeserializer;
+    }
+
+    public void setKeyDeserializer(String keyDeserializer) {
+        this.keyDeserializer = keyDeserializer;
+    }
+
+    public String getValueDeserializer() {
+        return valueDeserializer;
+    }
+
+    public void setValueDeserializer(String valueDeserializer) {
+        this.valueDeserializer = valueDeserializer;
+    }
+
+    public int getThreadCount() {
+        return threadCount;
+    }
+
+    public void setThreadCount(int threadCount) {
+        this.threadCount = threadCount;
+    }
+
+    public int getQueueSize() {
+        return queueSize;
+    }
+
+    public void setQueueSize(int queueSize) {
+        this.queueSize = queueSize;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

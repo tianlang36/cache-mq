@@ -3,7 +3,7 @@ package cn.rdtimes.imp.cache.redis;
 import cn.rdtimes.cache.BCacheFactory;
 import cn.rdtimes.cache.intf.ICacheAdvance;
 import cn.rdtimes.cache.intf.ICacheBase;
-import cn.rdtimes.impl.cache.BCacheHelper;
+import cn.rdtimes.impl.cache.redis.BCacheHelper;
 import cn.rdtimes.impl.cache.redis.BRedisCacheConfiguration;
 import org.junit.After;
 import org.junit.Before;
@@ -15,8 +15,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @description: mem缓存测试
+ * @description: redis缓存测试
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRedisCacheTest {

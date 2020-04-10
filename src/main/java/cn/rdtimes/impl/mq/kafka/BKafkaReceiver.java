@@ -1,6 +1,5 @@
 package cn.rdtimes.impl.mq.kafka;
 
-import cn.rdtimes.impl.mq.BMQHelper;
 import cn.rdtimes.mq.BMQException;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.BAbstractMQReceiver;
@@ -10,7 +9,6 @@ import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +16,7 @@ import java.util.Map;
 /**
  * @description: 接收器
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BKafkaReceiver extends BAbstractMQReceiver {
@@ -26,8 +25,10 @@ public class BKafkaReceiver extends BAbstractMQReceiver {
     private final CommitBack commitBack = new CommitBack();
 
     public BKafkaReceiver(BKafkaConfiguration configuration) {
-        super(configuration.getName() == null ? BMQHelper.KAFKA_RECEIVER_NAME : configuration.getName(),
-                configuration.getThreadCount(), configuration.getQueueSize());
+        super(((BKafkaReceiverConfiguration) configuration).getName() == null ? BMQHelper.KAFKA_RECEIVER_NAME :
+                        ((BKafkaReceiverConfiguration) configuration).getName(),
+                ((BKafkaReceiverConfiguration) configuration).getThreadCount(),
+                ((BKafkaReceiverConfiguration) configuration).getQueueSize());
         try {
             this.configuration = (BKafkaReceiverConfiguration) configuration;
             this.processNotify = this.configuration.getProcessNotify();

@@ -2,7 +2,7 @@ package cn.rdtimes.imp.mq.rabbit;
 
 import cn.rdtimes.imp.mq.BMyFilterTest;
 import cn.rdtimes.imp.mq.BObjectMessageTest;
-import cn.rdtimes.impl.mq.BMQHelper;
+import cn.rdtimes.impl.mq.rabbit.BMQHelper;
 import cn.rdtimes.impl.mq.rabbit.BRabbitSenderConfiguration;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.IMQSender;
@@ -10,8 +10,9 @@ import org.junit.Test;
 
 
 /**
- * @description: mem缓存测试
+ * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRabbitSenderTest {
@@ -24,7 +25,7 @@ public class BRabbitSenderTest {
         configuration.setPassword("123456");
         configuration.setExchangeName("bztest-exchange");
         configuration.addFilter(new BMyFilterTest());
-        IMQSender sender = BMQHelper.createRabbitSender(configuration);
+        IMQSender sender = BMQHelper.createSender(configuration);
 
         int i = 1;
         String queueName = "bztest";

@@ -1,7 +1,5 @@
 package cn.rdtimes.impl.mq.active;
 
-import cn.rdtimes.impl.mq.BMQHelper;
-import cn.rdtimes.impl.mq.util.BSerializerUtil;
 import cn.rdtimes.mq.BMQException;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.BAbstractMQReceiver;
@@ -17,6 +15,7 @@ import java.util.List;
 /**
  * @description: active接收器
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BActiveReceiver extends BAbstractMQReceiver {
@@ -27,8 +26,10 @@ public class BActiveReceiver extends BAbstractMQReceiver {
     private TopicSubscriber topicSubscriber;
 
     public BActiveReceiver(BActiveConfiguration configuration) {
-        super(configuration.getName() == null ? BMQHelper.RABBIT_RECEIVER_NAME : configuration.getName(),
-                configuration.getThreadCount(), configuration.getQueueSize());
+        super(((BActiveReceiverConfiguration) configuration).getName() == null ? BMQHelper.ACTIVE_RECEIVER_NAME :
+                        ((BActiveReceiverConfiguration) configuration).getName(),
+                ((BActiveReceiverConfiguration) configuration).getThreadCount(),
+                ((BActiveReceiverConfiguration) configuration).getQueueSize());
         try {
             this.configuration = (BActiveReceiverConfiguration) configuration;
             this.processNotify = this.configuration.getProcessNotify();

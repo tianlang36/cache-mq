@@ -2,7 +2,7 @@ package cn.rdtimes.imp.mq.kafka;
 
 import cn.rdtimes.imp.mq.BMyFilterTest;
 import cn.rdtimes.imp.mq.BObjectMessageTest;
-import cn.rdtimes.impl.mq.BMQHelper;
+import cn.rdtimes.impl.mq.kafka.BMQHelper;
 import cn.rdtimes.impl.mq.kafka.BKafkaSenderConfiguration;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.IMQSender;
@@ -10,8 +10,9 @@ import org.junit.Test;
 
 
 /**
- * @description: mem缓存测试
+ * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BKafkaSenderTest {
@@ -21,7 +22,7 @@ public class BKafkaSenderTest {
         BKafkaSenderConfiguration configuration = new BKafkaSenderConfiguration();
         configuration.setBootstrapServers("localhost:9092");
         configuration.addFilter(new BMyFilterTest());
-        IMQSender sender = BMQHelper.createKafkaSender(configuration);
+        IMQSender sender = BMQHelper.createSender(configuration);
 
         int i = 1;
         try {

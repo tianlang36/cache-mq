@@ -5,6 +5,7 @@ import cn.rdtimes.mq.intf.IMQMessage;
 /**
  * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BObjectMessageTest implements IMQMessage {

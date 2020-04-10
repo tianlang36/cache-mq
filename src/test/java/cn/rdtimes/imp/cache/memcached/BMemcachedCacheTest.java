@@ -2,7 +2,7 @@ package cn.rdtimes.imp.cache.memcached;
 
 import cn.rdtimes.cache.BCacheFactory;
 import cn.rdtimes.cache.intf.ICacheBase;
-import cn.rdtimes.impl.cache.BCacheHelper;
+import cn.rdtimes.impl.cache.memcached.BCacheHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @description: mem缓存测试
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BMemcachedCacheTest {

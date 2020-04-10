@@ -8,6 +8,7 @@ import java.io.IOException;
 /**
  * @description: bean序列化器
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BObjectSerializer<T> implements Serializer<T> {

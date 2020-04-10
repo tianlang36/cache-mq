@@ -1,6 +1,5 @@
 package cn.rdtimes.impl.mq.rabbit;
 
-import cn.rdtimes.impl.mq.BMQHelper;
 import cn.rdtimes.impl.mq.util.BSerializerUtil;
 import cn.rdtimes.mq.BMQException;
 import cn.rdtimes.mq.BMQFactory;
@@ -16,6 +15,7 @@ import java.util.List;
 /**
  * @description: rabbit接收器
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRabbitReceiver extends BAbstractMQReceiver {
@@ -26,8 +26,10 @@ public class BRabbitReceiver extends BAbstractMQReceiver {
     private BQueueingConsumer queueingConsumer;
 
     public BRabbitReceiver(BRabbitConfiguration configuration) {
-        super(configuration.getName() == null ? BMQHelper.RABBIT_RECEIVER_NAME : configuration.getName(),
-                configuration.getThreadCount(), configuration.getQueueSize());
+        super(((BRabbitReceiverConfiguration)configuration).getName() == null ? BMQHelper.RABBIT_RECEIVER_NAME :
+                        ((BRabbitReceiverConfiguration)configuration).getName(),
+                ((BRabbitReceiverConfiguration)configuration).getThreadCount(),
+                ((BRabbitReceiverConfiguration)configuration).getQueueSize());
         try {
             this.configuration = (BRabbitReceiverConfiguration) configuration;
             this.processNotify = this.configuration.getProcessNotify();

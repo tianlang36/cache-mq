@@ -2,7 +2,7 @@ package cn.rdtimes.imp.mq.rabbit;
 
 import cn.rdtimes.imp.mq.BMyFilterTest;
 import cn.rdtimes.imp.mq.BObjectMessageTest;
-import cn.rdtimes.impl.mq.BMQHelper;
+import cn.rdtimes.impl.mq.rabbit.BMQHelper;
 import cn.rdtimes.impl.mq.rabbit.BRabbitReceiverConfiguration;
 import cn.rdtimes.mq.BMQFactory;
 import cn.rdtimes.mq.intf.IMQMessage;
@@ -13,8 +13,9 @@ import java.util.concurrent.CountDownLatch;
 
 
 /**
- * @description: mem缓存测试
+ * @description:
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRabbitReceiverTest {
@@ -30,7 +31,7 @@ public class BRabbitReceiverTest {
         configuration.addFilter(new BMyFilterTest());
         configuration.setProcessNotify(new ProcessNotify());
 
-        BMQHelper.createRabbitReceiver(configuration);
+        BMQHelper.createReceiver(configuration);
 
         CountDownLatch latch = new CountDownLatch(1);
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {

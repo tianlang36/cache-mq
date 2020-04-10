@@ -3,6 +3,7 @@ package cn.rdtimes.impl.cache.redis;
 /**
  * @description: redis缓存配置信息
  * @author: BZ
+ * @create: 2020/2/13
  */
 
 public class BRedisCacheConfiguration {
