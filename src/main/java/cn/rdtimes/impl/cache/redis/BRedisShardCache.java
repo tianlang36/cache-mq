@@ -54,6 +54,7 @@ public class BRedisShardCache extends BAbstractCacheBase implements ICacheAdvanc
             String ip = ipport[0];
             int port = Integer.parseInt(ipport[1]);
             JedisShardInfo jedisShardInfo = new JedisShardInfo(ip, port);
+            jedisShardInfo.setSoTimeout(configuration.getTimeout());
             if (ipport.length > 2) {
                 jedisShardInfo.setPassword(ipport[2]);
             }
