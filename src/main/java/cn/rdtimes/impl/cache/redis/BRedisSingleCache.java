@@ -10,7 +10,7 @@ import redis.clients.jedis.params.SetParams;
 import java.util.*;
 
 /**
- * @description: redis实现分片类型
+ * @description: redis实现单独类型
  * @author: BZ
  * @create: 2020/2/13
  */
@@ -48,8 +48,12 @@ public class BRedisSingleCache extends BAbstractCacheBase implements ICacheAdvan
         poolConfig.setMinEvictableIdleTimeMillis(configuration.getMinEvictableIdleTimeMills());
 
         String[] hosts = configuration.alongIpAndPortAndPwd(configuration.getIpAndPortAndPwd());
-
-        jedisPool = new JedisPool(poolConfig, hosts[0], Integer.parseInt(hosts[1]));
+        if (hosts.length > 2) {
+            jedisPool = new JedisPool(poolConfig, hosts[0], Integer.parseInt(hosts[1]), configuration.getTimeout(),
+                    hosts[2]);
+        } else {
+            jedisPool = new JedisPool(poolConfig, hosts[0], Integer.parseInt(hosts[1]), configuration.getTimeout());
+        }
     }
 
     public String getName() {
