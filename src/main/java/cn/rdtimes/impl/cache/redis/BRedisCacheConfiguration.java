@@ -32,6 +32,8 @@ public class BRedisCacheConfiguration {
     private boolean testWhileIdle = false;
     //连接的最小空闲时间，达到此值后空闲连接将被移除
     private int minEvictableIdleTimeMills = 30000;
+    //客户端超时时间单位是毫秒
+    private int timeout = 3000;
 
     public String getIpAndPortAndPwd() {
         return ipAndPortAndPwd;
@@ -127,6 +129,14 @@ public class BRedisCacheConfiguration {
 
     public void setMinEvictableIdleTimeMills(int minEvictableIdleTimeMills) {
         this.minEvictableIdleTimeMills = minEvictableIdleTimeMills;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
     public  String[] splitIpAndPortAndPwd() {
