@@ -56,7 +56,7 @@ public class BRedisClusterCache extends BAbstractCacheBase implements ICacheAdva
             jedisClusterNode.add(new HostAndPort(ip, port));
         }
 
-        jedisCluster = new JedisCluster(jedisClusterNode, 10000, 5000, poolConfig);
+        jedisCluster = new JedisCluster(jedisClusterNode, configuration.getTimeout(), poolConfig);
     }
 
     public String getName() {
