@@ -97,7 +97,7 @@ public abstract class BAbstractMQReceiver extends BAbstractMQBase implements IMQ
     }
 
     class MQReceiverThread extends Thread {
-        int breakCount = 128;
+        int breakCount = 512;
 
         MQReceiverThread(String id) {
             super("MQReceiverThread-" + id);
@@ -122,9 +122,14 @@ public abstract class BAbstractMQReceiver extends BAbstractMQBase implements IMQ
                 if (messages == null || messages.size() == 0) {
                     if (isStopped) break;
 
-                    if (i > breakCount) {
-                        System.out.println("receive message is null, then more than 128 loops");
-                        break;
+                    if (i > 0 && (i % breakCount == 0)) {
+                        System.out.println(
+                                "receive message is null, then more than " + breakCount + " loops");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (Exception e) {
+                            //ignore
+                        }
                     }
                 } else {
                     i = 0;
@@ -166,8 +171,12 @@ public abstract class BAbstractMQReceiver extends BAbstractMQBase implements IMQ
             }
 
             if (processNotify != null) {
-                for (IMQMessage message : messages) {
-                    processNotify.doProcess(message);
+                if (processNotify.isBatch()) {
+                    processNotify.doProcess(messages);
+                } else {
+                    for (IMQMessage message : messages) {
+                        processNotify.doProcess(message);
+                    }
                 }
             } else {
                 System.out.println("processNotify interface is null");
