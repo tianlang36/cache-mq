@@ -44,6 +44,30 @@ public interface IMQReceiver extends IMQBase {
          * @param message 接收到消息
          */
         <T extends IMQMessage> void doProcess(T message);
+        
+        /**
+         * 是否使用批量处理方法
+         *
+         * @return true-使用，false-不使用
+         */
+        default boolean isBatch() {
+            return false;
+        }
+
+        /**
+         * 批量业务处理
+         *
+         * @param messages 接收到消息列表
+         * @param <T>
+         */
+        default <T extends IMQMessage> void doProcess(List<T> messages) {
+            if (messages == null || messages.size() == 0) {
+                return;
+            }
+            for (T message : messages) {
+                doProcess(message);
+            }
+        }
 
     }
 
