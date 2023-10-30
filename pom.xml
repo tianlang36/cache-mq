@@ -11,7 +11,7 @@
         <redis.version>3.2.0</redis.version>
         <rabbitmq.version>5.8.0</rabbitmq.version>
         <kafka.version>2.3.1</kafka.version>
-        <active.version>5.15.11</active.version>
+        <active.version>5.15.16</active.version>
         <rocket.version>4.7.0</rocket.version>
         <spymemcached.version>2.10.3</spymemcached.version>
         <cache-mq.version>1.3</cache-mq.version>
